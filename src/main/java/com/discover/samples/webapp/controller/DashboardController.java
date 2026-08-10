@@ -18,7 +18,7 @@ public class DashboardController {
     @GetMapping("/")
     public String home() {
 
-        return "redirect:/dashboard";
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/dashboard")
@@ -36,6 +36,6 @@ public class DashboardController {
                 "currentPage",
                 "dashboard");
 
-        return "dashboard";
+        return "/admin/dashboard";
     }
 }

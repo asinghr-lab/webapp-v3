@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.discover.samples</groupId>
-	<artifactId>webapp-rbac</artifactId>
+	<artifactId>webapp-sis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>webapp-rbac</name>
+	<name>webapp-v2</name>
 	<description/>
 	<url/>
 	<licenses>
