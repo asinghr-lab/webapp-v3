@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout/main}">
+
+<head>
+
+    <title>Dashboard</title>
+
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+
+        <div class="d-flex justify-content-between
+                flex-wrap flex-md-nowrap
+                align-items-center mb-4">
+
+            <div>
+
+                <h1 class="h3 mb-1">
+
+                    <i class="bi bi-speedometer2"></i>
+
+                    Dashboard
+
+                </h1>
+
+                <p class="text-muted mb-0">
+
+                    Welcome to RBAC-WebApp.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- METRICS                                            -->
+        <!-- ================================================== -->
+
+        <div class="row g-4">
+
+            <!-- Admin count -->
+
+            <div class="col-md-6 col-xl-4">
+
+                <div class="card dashboard-card shadow-sm">
+
+                    <div class="card-body">
+
+                        <div class="d-flex
+                                justify-content-between
+                                align-items-center">
+
+                            <div>
+
+                                <h6 class="text-muted">
+                                    ADMIN USERS
+                                </h6>
+
+                                <h2 th:text="${adminCount}">
+                                    0
+                                </h2>
+
+                            </div>
+
+                            <div class="dashboard-icon">
+
+                                <i class="bi bi-person-badge"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Staff count -->
+
+            <div class="col-md-6 col-xl-4">
+
+                <div class="card dashboard-card shadow-sm">
+
+                    <div class="card-body">
+
+                        <div class="d-flex
+                                justify-content-between
+                                align-items-center">
+
+                            <div>
+
+                                <h6 class="text-muted">
+                                    STAFF USERS
+                                </h6>
+
+                                <h2 th:text="${staffCount}">
+                                    0
+                                </h2>
+
+                            </div>
+
+                            <div class="dashboard-icon">
+
+                                <i class="bi bi-people"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Current user -->
+
+            <div class="col-md-12 col-xl-4">
+
+                <div class="card dashboard-card shadow-sm">
+
+                    <div class="card-body">
+
+                        <h6 class="text-muted">
+                            CURRENT USER
+                        </h6>
+
+                        <h4 sec:authentication="name">
+                            username
+                        </h4>
+
+                        <div class="mt-2">
+
+                            <span th:each="authority : ${#authentication.authorities}" class="badge bg-primary me-1"
+                                th:text="${authority.authority}">
+                                ROLE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- ACCESS CONTROL INFORMATION                         -->
+        <!-- ================================================== -->
+
+        <div class="card mt-4 shadow-sm">
+
+            <div class="card-body">
+
+                <h5>
+
+                    <i class="bi bi-shield-check"></i>
+
+                    Access Control
+
+                </h5>
+
+                <p class="text-muted mb-0">
+
+                    Your available application features are
+                    determined by your assigned role.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN INFORMATION -->
+
+        <div sec:authorize="hasRole('ADMIN')" class="alert alert-info mt-4">
+
+            <i class="bi bi-info-circle"></i>
+
+            You are logged in as an administrator.
+            You can create and manage users.
+
+        </div>
+
+
+        <!-- STAFF INFORMATION -->
+
+        <div sec:authorize="hasRole('STAFF')" class="alert alert-secondary mt-4">
+
+            <i class="bi bi-person"></i>
+
+            You are logged in as staff.
+            You can view staff users.
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

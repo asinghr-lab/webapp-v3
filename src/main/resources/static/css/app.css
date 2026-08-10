@@ -1,0 +1,135 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.login-page {
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #6f42c1
+    );
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+}
+
+.login-card {
+    border: 0;
+    border-radius: 12px;
+}
+
+.login-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e9f2ff;
+
+    color: #0d6efd;
+
+    border-radius: 50%;
+
+    font-size: 2rem;
+}
+
+.sidebar {
+    min-height: calc(100vh - 56px);
+
+    background-color: #212529;
+
+    border-right: 1px solid #343a40;
+}
+
+.sidebar-heading {
+    color: #adb5bd;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 0.08rem;
+
+    margin-bottom: 1rem;
+}
+
+.sidebar .nav-link {
+    color: #f8f9fa;
+
+    border-radius: 6px;
+
+    margin-bottom: 4px;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #343a40;
+}
+
+.sidebar .nav-link.active {
+    color: #ffffff;
+
+    background-color: #0d6efd;
+}
+
+.sidebar .nav-link i {
+    margin-right: 8px;
+}
+
+.dashboard-card {
+    border: 0;
+
+    border-radius: 10px;
+}
+
+.dashboard-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e9f2ff;
+
+    color: #0d6efd;
+
+    border-radius: 50%;
+
+    font-size: 1.5rem;
+}
+
+.table th {
+    white-space: nowrap;
+}
+
+
+main {
+    min-height: calc(100vh - 120px);
+}
+
+footer {
+    font-size: 0.85rem;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.table th {
+    font-weight: 600;
+}
+
+.sidebar {
+    min-height: calc(100vh - 56px);
+}
