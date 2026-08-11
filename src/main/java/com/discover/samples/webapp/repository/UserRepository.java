@@ -13,7 +13,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String username);
 
+    boolean existsBySchoolId(String schoolId);
+
     List<User> findByRoleOrderByUsernameAsc(Role role);
+
+    List<User> findAllByOrderByUsernameAsc();
+
+    List<User> findByApprovedAtIsNullOrderByCreatedAtAsc();
 
     long countByRole(Role role);
 }

@@ -17,4 +17,9 @@ public class AuthController {
 
         return "error/403";
     }
+
+    @GetMapping("/payments")
+    public String payments() {
+        return "payments";
+    }
 }

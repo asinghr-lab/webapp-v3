@@ -75,11 +75,11 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**")
                 .hasRole("ADMIN")
 
-                .requestMatchers("/users/staff")
+                .requestMatchers("/users/staff", "/users/students", "/users/new")
                 .hasAnyRole("ADMIN", "STAFF")
 
                 .requestMatchers("/dashboard")
-                .hasAnyRole("ADMIN", "STAFF")
+                .hasAnyRole("ADMIN", "STAFF", "STUDENT")
 
                 .anyRequest()
                 .authenticated()

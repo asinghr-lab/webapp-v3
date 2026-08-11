@@ -154,6 +154,10 @@
 
         </div>
 
+        <div class="card mt-4 shadow-sm"><div class="card-body"><h5>Student Users</h5><h2 th:text="${studentCount}">0</h2><a class="btn btn-primary" th:href="@{/users/students}">View All Students</a></div></div>
+
+        <div class="card mt-4 shadow-sm"><div class="card-body"><div class="d-flex justify-content-between"><h5>Pending Approval Requests</h5><span class="badge bg-warning text-dark" th:text="${#lists.size(pendingApprovals)}">0</span></div><div class="table-responsive mt-3" th:if="${!#lists.isEmpty(pendingApprovals)}"><table class="table"><thead><tr><th>School ID</th><th>User</th><th>Role</th><th>Requested by</th><th>Requested at</th><th></th></tr></thead><tbody><tr th:each="user : ${pendingApprovals}"><td th:text="${user.schoolId}"></td><td th:text="${user.username}"></td><td th:text="${user.role}"></td><td th:text="${user.createdBy}"></td><td th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}"></td><td><form th:action="@{/users/{id}/approve(id=${user.id})}" method="post"><button class="btn btn-sm btn-success">Approve</button></form></td></tr></tbody></table></div><p th:if="${#lists.isEmpty(pendingApprovals)}" class="text-muted mb-0">No approval requests are waiting.</p></div></div>
+
 
         <!-- ================================================== -->
         <!-- ACCESS CONTROL INFORMATION                         -->

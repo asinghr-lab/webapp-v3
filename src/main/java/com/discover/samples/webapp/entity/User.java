@@ -20,6 +20,18 @@ public class User {
     @Column(nullable = false, length = 100)
     private String username;
 
+    @Column(nullable = false, unique = true, length = 50)
+    private String schoolId;
+
+    @Column(nullable = false, length = 30)
+    private String mobileNumber;
+
+    @Column(length = 150)
+    private String fullName;
+
+    @Column(length = 150)
+    private String email;
+
     @Column(nullable = false)
     private String password;
 
@@ -32,6 +44,14 @@ public class User {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false, length = 100)
+    private String createdBy;
+
+    @Column(length = 100)
+    private String approvedBy;
+
+    private LocalDateTime approvedAt;
 
     public User() {
     }
@@ -70,6 +90,16 @@ public class User {
         this.username = username;
     }
 
+    public String getSchoolId() { return schoolId; }
+    public void setSchoolId(String schoolId) { this.schoolId = schoolId; }
+    public String getMobileNumber() { return mobileNumber; }
+    public void setMobileNumber(String mobileNumber) { this.mobileNumber = mobileNumber; }
+
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
     public String getPassword() {
         return password;
     }
@@ -97,4 +127,11 @@ public class User {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public String getCreatedBy() { return createdBy; }
+    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
+    public String getApprovedBy() { return approvedBy; }
+    public void setApprovedBy(String approvedBy) { this.approvedBy = approvedBy; }
+    public LocalDateTime getApprovedAt() { return approvedAt; }
+    public void setApprovedAt(LocalDateTime approvedAt) { this.approvedAt = approvedAt; }
 }

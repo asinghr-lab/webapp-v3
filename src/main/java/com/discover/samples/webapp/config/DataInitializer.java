@@ -18,25 +18,17 @@ public class DataInitializer {
 
         return args -> {
 
-            if (!userRepository.existsByUsername("admin")) {
-
-                userService.createUser(
-                        "admin",
-                        "admin123",
-                        Role.ADMIN
-                );
-
-                System.out.println(
-                        "==========================================");
-                System.out.println(
-                        "Default administrator created");
-                System.out.println(
-                        "Username: admin");
-                System.out.println(
-                        "Password: admin123");
-                System.out.println(
-                        "==========================================");
-            }
+            createIfMissing(userRepository, userService, "admin", "ADM-001", "9000000001", "admin123", Role.ADMIN);
+            createIfMissing(userRepository, userService, "staff", "STF-001", "9000000002", "staff123", Role.STAFF);
+            createIfMissing(userRepository, userService, "student", "STU-001", "9000000003", "student123", Role.STUDENT);
         };
+    }
+
+    private void createIfMissing(UserRepository userRepository, UserService userService,
+                                 String username, String schoolId, String mobileNumber, String password, Role role) {
+        if (!userRepository.existsByUsername(username)) {
+            userService.createApprovedUser(username, schoolId, mobileNumber, password, role, "SYSTEM");
+            System.out.printf("Default %s user created: %s%n", role.name().toLowerCase(), username);
+        }
     }
 }
