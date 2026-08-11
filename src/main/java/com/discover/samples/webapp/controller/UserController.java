@@ -43,6 +43,12 @@ public class UserController {
         return userList(model, userService.findAllUsers(), "All Users", "all", "all-users");
     }
 
+    @GetMapping("/admins")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminUsers(Model model) {
+        return userList(model, userService.findAllAdmins(), "Admin Members", "admins", "admins");
+    }
+
     @GetMapping("/new")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public String newUserForm(Authentication authentication, Model model) {

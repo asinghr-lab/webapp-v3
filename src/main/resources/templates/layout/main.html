@@ -25,6 +25,7 @@
     <li><a class="nav-link" th:href="@{/users/students}">View Students</a></li>
   </ul></section>
   <section sec:authorize="hasRole('ADMIN')"><h6 class="sidebar-heading mt-3">ADMIN</h6><ul class="nav nav-pills flex-column">
+    <li><a class="nav-link" th:href="@{/users/admins}">View Admin Members</a></li>
     <li><a class="nav-link" th:href="@{/users/staff}">View All Staff</a></li>
     <li><a class="nav-link" th:href="@{/users/students}">View All Students</a></li>
   </ul></section>
