@@ -1,1 +1,144 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout/main}"><head><title th:text="${pageTitle}">Users</title></head><body><div layout:fragment="content"><div class="d-flex justify-content-between align-items-center mb-4"><h1 class="h3" th:text="${pageTitle}">Users</h1><a sec:authorize="hasAnyRole('ADMIN','STAFF')" class="btn btn-primary" th:href="@{/users/new}">Add User</a></div><div th:if="${param.pending}" class="alert alert-info">User submitted for administrator approval.</div><div class="card shadow-sm"><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>School ID</th><th>Username</th><th>Mobile</th><th>Role</th><th>Created by / at</th><th>Approval</th><th th:if="${pageType == 'staff' or pageType == 'students'}">Approved by</th><th th:if="${pageType == 'staff' or pageType == 'students'}">Approved at</th><th sec:authorize="hasAnyRole('ADMIN','STAFF')">Actions</th></tr></thead><tbody><tr th:each="user : ${users}"><td th:text="${user.schoolId}">STU-001</td><td th:text="${user.username}">user</td><td th:text="${user.mobileNumber}">9000000000</td><td th:text="${user.role}">STUDENT</td><td><span th:text="${user.createdBy}">creator</span><br><small th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}">date</small></td><td><span th:if="${user.approvedAt}" class="badge bg-success">Approved</span><span th:unless="${user.approvedAt}" class="badge bg-warning text-dark">Pending</span></td><td th:if="${pageType == 'staff' or pageType == 'students'}" th:text="${user.approvedBy ?: '-'}">admin</td><td th:if="${pageType == 'staff' or pageType == 'students'}" th:text="${user.approvedAt != null ? #temporals.format(user.approvedAt, 'dd-MM-yyyy HH:mm') : '-'}">date</td><td sec:authorize="hasAnyRole('ADMIN','STAFF')"><a class="btn btn-sm btn-outline-primary" th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a><form sec:authorize="hasRole('ADMIN')" th:if="${user.approvedAt == null}" class="d-inline" th:action="@{/users/{id}/approve(id=${user.id})}" method="post"><button class="btn btn-sm btn-success">Approve</button></form><form sec:authorize="hasRole('ADMIN')" class="d-inline" th:action="@{/users/{id}/delete(id=${user.id})}" method="post"><button class="btn btn-sm btn-outline-danger" type="submit">Remove</button></form></td></tr><tr th:if="${#lists.isEmpty(users)}"><td colspan="9" class="text-center text-muted py-4">No users found.</td></tr></tbody></table></div></div></div></body></html>
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorate="~{layout/main}"
+>
+  <head>
+    <title th:text="${pageTitle}">Users</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3" th:text="${pageTitle}">Users</h1>
+        <a
+          sec:authorize="hasAnyRole('ADMIN','STAFF')"
+          class="btn btn-primary"
+          th:href="@{/users/new}"
+          >Add User</a
+        >
+      </div>
+      <div th:if="${param.pending}" class="alert alert-info">
+        User submitted for administrator approval.
+      </div>
+      <div class="card shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>School ID</th>
+                <th>Username</th>
+                <th>Mobile</th>
+                <th>Role</th>
+                <th>Created by / at</th>
+                <th>Approval</th>
+                <th
+                  th:if="${pageType == 'students' or pageType == 'staff' or pageType == 'admins'}"
+                >
+                  Last modified by
+                </th>
+                <th
+                  th:if="${pageType == 'students' or pageType == 'staff' or pageType == 'admins'}"
+                >
+                  Last modified at
+                </th>
+                <th
+                  th:if="${pageType == 'students' or pageType == 'staff' or pageType == 'admins'}"
+                >
+                  Approved by
+                </th>
+                <th
+                  th:if="${pageType == 'students' or pageType == 'staff' or pageType == 'admins'}"
+                >
+                  Approved at
+                </th>
+                <th sec:authorize="hasAnyRole('ADMIN','STAFF')">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="user : ${users}">
+                <td th:text="${user.schoolId}">STU-001</td>
+                <td th:text="${user.username}">user</td>
+                <td th:text="${user.mobileNumber}">9000000000</td>
+                <td th:text="${user.role}">STUDENT</td>
+                <td>
+                  <span th:text="${user.createdBy}">creator</span><br /><small
+                    th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}"
+                    >date</small
+                  >
+                </td>
+                <td>
+                  <span th:if="${user.approvedAt}" class="badge bg-success"
+                    >Approved</span
+                  ><span
+                    th:unless="${user.approvedAt}"
+                    class="badge bg-warning text-dark"
+                    >Pending</span
+                  >
+                </td>
+                <td
+                  th:if="${pageType == 'students' or pageType == 'staff' or pageType == 'admins'}"
+                  th:text="${user.lastModifiedBy ?: '-'}"
+                >
+                  admin
+                </td>
+                <td
+                  th:if="${pageType == 'students' or pageType == 'staff'  or pageType == 'admins'}"
+                  th:text="${user.lastModifiedAt != null ? #temporals.format(user.lastModifiedAt, 'dd-MM-yyyy HH:mm') : '-'}"
+                >
+                  date
+                </td>
+                <td
+                  th:if="${pageType == 'students' or pageType == 'staff' or pageType == 'admins'}"
+                  th:text="${user.approvedBy ?: '-'}"
+                >
+                  admin
+                </td>
+                <td
+                  th:if="${pageType == 'students' or pageType == 'staff'  or pageType == 'admins'}"
+                  th:text="${user.approvedAt != null ? #temporals.format(user.approvedAt, 'dd-MM-yyyy HH:mm') : '-'}"
+                >
+                  date
+                </td>
+                <td sec:authorize="hasAnyRole('ADMIN','STAFF')">
+                  <a
+                    class="btn btn-sm btn-primary"
+                    th:href="@{/users/{id}/edit(id=${user.id})}"
+                    >Edit</a
+                  >
+
+                  <form
+                    sec:authorize="hasRole('ADMIN')"
+                    th:if="${user.approvedAt == null}"
+                    class="d-inline"
+                    th:action="@{/users/{id}/approve(id=${user.id})}"
+                    method="post"
+                  >
+                    <button class="btn btn-sm btn-success">Approve</button>
+                  </form>
+                  <form
+                    sec:authorize="hasRole('ADMIN')"
+                    class="d-inline"
+                    th:action="@{/users/{id}/delete(id=${user.id})}"
+                    method="post"
+                  >
+                    <button class="btn btn-sm btn-danger" type="submit">
+                      Remove
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(users)}">
+                <td colspan="9" class="text-center text-muted py-4">
+                  No users found.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

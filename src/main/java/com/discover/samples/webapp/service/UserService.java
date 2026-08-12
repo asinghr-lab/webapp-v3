@@ -120,7 +120,9 @@ public class UserService {
         user.setRole(role);
         user.setEnabled(false);
         user.setCreatedBy(createdBy);
-
+        
+         //set last modified by
+        user.setLastModifiedBy(createdBy);
         return userRepository.save(user);
     }
 
@@ -130,6 +132,10 @@ public class UserService {
         user.setEnabled(true);
         user.setApprovedBy(createdBy);
         user.setApprovedAt(LocalDateTime.now());
+        
+        //set last modified by
+        user.setLastModifiedBy(createdBy);
+        user.setLastModifiedAt(LocalDateTime.now());
         return user;
     }
 
@@ -150,7 +156,10 @@ public class UserService {
         }
         user.setEnabled(true);
         user.setApprovedBy(approver);
+        user.setLastModifiedBy(approver);
         user.setApprovedAt(LocalDateTime.now());
+        user.setLastModifiedBy(approver);
+        user.setLastModifiedAt(user.getApprovedAt());
         return user;
     }
 
@@ -166,7 +175,7 @@ public class UserService {
         return user;
     }
 
-    public User updateUser(Long id, String schoolId, String mobileNumber, Role role, boolean enabled) {
+    public User updateUser(Long id, String schoolId, String mobileNumber, Role role, boolean enabled, String editor) {
         User user = findById(id);
         String normalizedSchoolId = schoolId == null ? "" : schoolId.trim();
         if (normalizedSchoolId.isBlank()) {
@@ -181,6 +190,9 @@ public class UserService {
         user.setSchoolId(normalizedSchoolId);
         user.setMobileNumber(mobileNumber.trim());
         user.setRole(role);
+         //set last modified by
+        user.setLastModifiedBy(editor);
+        user.setLastModifiedAt(LocalDateTime.now());
         // A pending request can only become active through approveUser().
         user.setEnabled(user.getApprovedAt() != null && enabled);
         return user;
@@ -194,6 +206,9 @@ public class UserService {
             throw new IllegalArgumentException("Mobile number is required.");
         }
         user.setMobileNumber(mobileNumber.trim());
+        //set last modified by
+        user.setLastModifiedBy(user.getUsername());
+        user.setLastModifiedAt(LocalDateTime.now());
         return user;
     }
 

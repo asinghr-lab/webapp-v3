@@ -53,6 +53,27 @@ public class User {
 
     private LocalDateTime approvedAt;
 
+    @Column(length = 100)
+    private String lastModifiedBy;
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public LocalDateTime getLastModifiedAt() {
+        return lastModifiedAt;
+    }
+
+    public void setLastModifiedAt(LocalDateTime lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+    private LocalDateTime lastModifiedAt;
+
+
     public User() {
     }
 
@@ -75,9 +96,11 @@ public class User {
 
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
+            
         }
     }
 
+    
     public Long getId() {
         return id;
     }

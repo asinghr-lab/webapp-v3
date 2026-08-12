@@ -60,8 +60,8 @@ public class UserController {
     @PostMapping("/new")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public String createUser(Authentication authentication, @RequestParam @NotBlank String username,
-                             @RequestParam String schoolId, @RequestParam String mobileNumber,
-                             @RequestParam String password, @RequestParam Role role, Model model) {
+            @RequestParam String schoolId, @RequestParam String mobileNumber,
+            @RequestParam String password, @RequestParam Role role, Model model) {
         try {
             requireCreatableRole(authentication, role);
             userService.createUser(username, schoolId, mobileNumber, password, role, authentication.getName());
@@ -86,7 +86,7 @@ public class UserController {
 
     @PostMapping("/profile/password")
     public String changePassword(Authentication authentication, @RequestParam String currentPassword,
-                                 @RequestParam String newPassword, Model model) {
+            @RequestParam String newPassword, Model model) {
         try {
             userService.changePassword(authentication.getName(), currentPassword, newPassword);
             return "redirect:/users/profile?passwordChanged";
@@ -100,8 +100,8 @@ public class UserController {
 
     @PostMapping("/profile")
     public String updateProfile(Authentication authentication, @RequestParam(required = false) String fullName,
-                                @RequestParam(required = false) String email, @RequestParam String mobileNumber,
-                                Model model) {
+            @RequestParam(required = false) String email, @RequestParam String mobileNumber,
+            Model model) {
         try {
             userService.updateProfile(authentication.getName(), fullName, email, mobileNumber);
             return "redirect:/users/profile?updated";
@@ -126,6 +126,7 @@ public class UserController {
         User user = userService.findById(id);
         requireManageableUser(authentication, user);
         model.addAttribute("user", user);
+        
         model.addAttribute("canChooseRole", isAdmin(authentication));
         model.addAttribute("currentPage", "edit-user");
         return "users/edit";
@@ -134,13 +135,13 @@ public class UserController {
     @PostMapping("/{id}/edit")
     @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public String updateUser(@PathVariable Long id, Authentication authentication, @RequestParam String schoolId,
-                             @RequestParam String mobileNumber, @RequestParam Role role,
-                             @RequestParam(defaultValue = "false") boolean enabled, Model model) {
+            @RequestParam String mobileNumber, @RequestParam Role role,
+            @RequestParam(defaultValue = "false") boolean enabled, Model model) {
         try {
             User user = userService.findById(id);
             requireManageableUser(authentication, user);
             requireCreatableRole(authentication, role);
-            userService.updateUser(id, schoolId, mobileNumber, role, enabled);
+            userService.updateUser(id, schoolId, mobileNumber, role, enabled, authentication.getName());
             return "redirect:/users/" + (role == Role.STUDENT ? "students" : "staff");
         } catch (IllegalArgumentException | AccessDeniedException ex) {
             model.addAttribute("user", userService.findById(id));
@@ -162,7 +163,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    private String userList(Model model, java.util.List<User> users, String title, String pageType, String currentPage) {
+    private String userList(Model model, java.util.List<User> users, String title, String pageType,
+            String currentPage) {
         model.addAttribute("users", users);
         model.addAttribute("pageTitle", title);
         model.addAttribute("pageType", pageType);
