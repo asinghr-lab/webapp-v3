@@ -1,1 +1,28 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}"><head><title>Staff Dashboard</title></head><body><div layout:fragment="content"><h1 class="h3">Staff Dashboard</h1><p class="text-muted">Manage student accounts and view student information.</p><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Students</h2><p class="display-6" th:text="${studentCount}">0</p><a class="btn btn-primary" th:href="@{/users/students}">View Students</a></div></div></div></body></html>
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/main}"
+>
+  <head>
+    <title>Staff Dashboard</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <h1 class="h3"> <i class="bi bi-person-circle"></i> Staff Dashboard</h1>
+      <p class="text-muted">
+        Manage student accounts and receive fee and view payment information.
+      </p>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="h5">Students</h2>
+          <p class="display-6" th:text="${studentCount}">0</p>
+          <a class="btn btn-primary" th:href="@{/users/students}"
+            >View Students</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,1 +1,48 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}"><head><title>Update User</title></head><body><div layout:fragment="content"><div class="row justify-content-center"><div class="col-md-7"><h1 class="h3 mb-4">Update User: <span th:text="${user.username}"></span></h1><div th:if="${error}" class="alert alert-danger" th:text="${error}"></div><div class="card shadow-sm"><div class="card-body"><dl class="row"><dt class="col-sm-4">Created by</dt><dd class="col-sm-8" th:text="${user.createdBy}"></dd><dt class="col-sm-4">Approval</dt><dd class="col-sm-8" th:text="${user.approvedBy ?: 'Pending'}"></dd></dl><form th:action="@{/users/{id}/edit(id=${user.id})}" method="post"><div class="mb-3"><label class="form-label">School ID</label><input class="form-control" name="schoolId" th:value="${user.schoolId}" required></div><div class="mb-3"><label class="form-label">Mobile number</label><input class="form-control" name="mobileNumber" th:value="${user.mobileNumber}" required></div><div class="mb-3"><label class="form-label">Role</label><select th:if="${canChooseRole}" class="form-select" name="role"><option th:each="role : ${T(com.discover.samples.webapp.entity.Role).values()}" th:value="${role}" th:text="${role}" th:selected="${role == user.role}"></option></select><input th:unless="${canChooseRole}" type="hidden" name="role" value="STUDENT"><input th:unless="${canChooseRole}" class="form-control" value="STUDENT" disabled></div><div class="form-check mb-4"><input class="form-check-input" type="checkbox" name="enabled" value="true" id="enabled" th:checked="${user.enabled}"><label class="form-check-label" for="enabled">Account enabled</label></div><button class="btn btn-primary" type="submit">Save Changes</button></form></div></div></div></div></div></body></html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/main}">
+
+<head>
+    <title>Update User</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <h1 class="h3 mb-4">Update User: <span th:text="${user.username}"></span></h1>
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">Created by</dt>
+                            <dd class="col-sm-8" th:text="${user.createdBy}"></dd>
+                            <dt class="col-sm-4">Approval</dt>
+                            <dd class="col-sm-8" th:text="${user.approvedBy ?: 'Pending'}"></dd>
+                        </dl>
+                        <form th:action="@{/users/{id}/edit(id=${user.id})}" method="post">
+                            <div class="mb-3"><label class="form-label">School ID</label><input class="form-control"
+                                    name="schoolId" th:value="${user.schoolId}" required></div>
+                            <div class="mb-3"><label class="form-label">Mobile number</label><input class="form-control"
+                                    name="mobileNumber" th:value="${user.mobileNumber}" required></div>
+                            <div class="mb-3"><label class="form-label">Role</label><select th:if="${canChooseRole}"
+                                    class="form-select" name="role">
+                                    <option th:each="role : ${T(com.discover.samples.webapp.entity.Role).values()}"
+                                        th:value="${role}" th:text="${role}" th:selected="${role == user.role}">
+                                    </option>
+                                </select><input th:unless="${canChooseRole}" type="hidden" name="role"
+                                    value="STUDENT"><input th:unless="${canChooseRole}" class="form-control"
+                                    value="STUDENT" disabled></div>
+                            <div class="form-check mb-4"><input class="form-check-input" type="checkbox" name="enabled"
+                                    value="true" id="enabled" th:checked="${user.enabled}"><label
+                                    class="form-check-label" for="enabled">Account enabled</label></div><button
+                                class="btn btn-primary" type="submit">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

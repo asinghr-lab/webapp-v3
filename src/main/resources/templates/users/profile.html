@@ -1,1 +1,108 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}"><head><title>My Details</title></head><body><div layout:fragment="content"><h1 class="h3 mb-4">My Details</h1><div th:if="${param.passwordChanged}" class="alert alert-success">Password updated.</div><div th:if="${param.updated}" class="alert alert-success">Details updated.</div><div th:if="${error}" class="alert alert-danger" th:text="${error}"></div><div class="row"><div class="col-lg-5"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Update Details</h2><form th:action="@{/users/profile}" method="post"><div class="mb-3"><label class="form-label">Username</label><input class="form-control" th:value="${user.username}" disabled></div><div class="mb-3"><label class="form-label">School ID</label><input class="form-control" th:value="${user.schoolId}" disabled></div><div class="mb-3"><label class="form-label">Full name</label><input class="form-control" name="fullName" th:value="${user.fullName}"></div><div class="mb-3"><label class="form-label">Email</label><input class="form-control" type="email" name="email" th:value="${user.email}"></div><div class="mb-3"><label class="form-label">Mobile number</label><input class="form-control" name="mobileNumber" th:value="${user.mobileNumber}" required></div><button class="btn btn-primary">Save Details</button></form><hr><dl><dt>Role</dt><dd th:text="${user.role}"></dd><dt>Created by</dt><dd th:text="${user.createdBy}"></dd><dt>Created at</dt><dd th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}"></dd><dt>Approved by</dt><dd th:text="${user.approvedBy ?: 'Pending approval'}"></dd><dt>Approved at</dt><dd th:text="${user.approvedAt != null ? #temporals.format(user.approvedAt, 'dd-MM-yyyy HH:mm') : '-'}"></dd></dl></div></div></div><div class="col-lg-5"><div class="card shadow-sm"><div class="card-body"><h2 class="h5">Change Password</h2><form th:action="@{/users/profile/password}" method="post"><div class="mb-3"><label class="form-label">Current password</label><input class="form-control" type="password" name="currentPassword" required></div><div class="mb-3"><label class="form-label">New password</label><input class="form-control" type="password" name="newPassword" minlength="8" required></div><button class="btn btn-primary">Change Password</button></form></div></div></div></div></div></body></html>
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/main}"
+>
+  <head>
+    <title>My Details</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <h1 class="h3 mb-4">My Details</h1>
+      <div th:if="${param.passwordChanged}" class="alert alert-success">
+        Password updated.
+      </div>
+      <div th:if="${param.updated}" class="alert alert-success">
+        Details updated.
+      </div>
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="h5">Update Details</h2>
+              <form th:action="@{/users/profile}" method="post">
+                <div class="mb-3">
+                  <label class="form-label">Username</label
+                  ><input
+                    class="form-control"
+                    th:value="${user.username}"
+                    disabled
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">School ID</label
+                  ><input
+                    class="form-control"
+                    th:value="${user.schoolId}"
+                    disabled
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Full name</label
+                  ><input
+                    class="form-control"
+                    name="fullName"
+                    th:value="${user.fullName}"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label
+                  ><input
+                    class="form-control"
+                    type="email"
+                    name="email"
+                    th:value="${user.email}"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Mobile number</label
+                  ><input
+                    class="form-control"
+                    name="mobileNumber"
+                    th:value="${user.mobileNumber}"
+                    required
+                  />
+                </div>
+                <button class="btn btn-primary">Save Details</button>
+              </form>
+              
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="h5">Change Password</h2>
+              <form th:action="@{/users/profile/password}" method="post">
+                <div class="mb-3">
+                  <label class="form-label">Current password</label
+                  ><input
+                    class="form-control"
+                    type="password"
+                    name="currentPassword"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">New password</label
+                  ><input
+                    class="form-control"
+                    type="password"
+                    name="newPassword"
+                    minlength="8"
+                    required
+                  />
+                </div>
+                <button class="btn btn-primary">Change Password</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

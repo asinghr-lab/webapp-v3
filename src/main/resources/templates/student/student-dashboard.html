@@ -1,1 +1,28 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}"><head><title>Student Dashboard</title></head><body><div layout:fragment="content"><h1 class="h3">Student Dashboard</h1><p class="text-muted">View your account details and payment information.</p><div class="card shadow-sm"><div class="card-body"><a class="btn btn-primary" th:href="@{/users/profile}">View My Details</a><a class="btn btn-outline-primary" th:href="@{/payments}">View Payments</a></div></div></div></body></html>
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/main}"
+>
+  <head>
+    <title>Student Dashboard</title>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <h1 class="h3">Student Dashboard</h1>
+      <p class="text-muted">
+        View your account details and payment information.
+      </p>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <a class="btn btn-primary" th:href="@{/users/profile}"
+            >View My Details</a
+          ><a class="btn btn-outline-primary" th:href="@{/payments}"
+            >View Payments</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

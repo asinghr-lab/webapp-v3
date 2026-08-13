@@ -13,22 +13,38 @@
   <div class="d-flex align-items-center"><span class="text-white me-3" sec:authentication="name">username</span><form th:action="@{/logout}" method="post"><button class="btn btn-outline-light btn-sm">Logout</button></form></div>
 </div></nav>
 <div class="container-fluid"><div class="row">
-<aside class="col-md-3 col-lg-2 sidebar p-3">
+  <!-- font-size for sidebar menu-items set to 4 fs-4  -->
+<aside class="col-md-3 col-lg-2 sidebar p-3 fs-5">
   <a class="nav-link text-white mb-3" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
-  <section sec:authorize="hasRole('STUDENT')"><h6 class="sidebar-heading">STUDENT</h6><ul class="nav nav-pills flex-column">
-    <li><a class="nav-link" th:href="@{/users/profile}">View Student Detail</a></li>
-    <li><a class="nav-link" th:href="@{/users/profile}">Update Details</a></li>
-    <li><a class="nav-link" th:href="@{/payments}">View Payments</a></li>
+  <section sec:authorize="hasRole('STUDENT')"><h4 class="sidebar-heading">STUDENT</h4><hr/><ul class="nav nav-pills flex-column">
+    <li><a class="nav-link" th:href="@{/users/profile}"><i class="bi bi-file-text"></i>Password & Profile</a></li>
+    <li><a class="nav-link" th:href="@{/payments}"><i class="bi bi-cash-coin"></i>View Payments</a></li>
   </ul></section>
-  <section sec:authorize="hasRole('STAFF')"><h6 class="sidebar-heading mt-3">STAFF</h6><ul class="nav nav-pills flex-column">
-    <li><a class="nav-link" th:href="@{/users/profile}">View Staff Detail</a></li>
-    <li><a class="nav-link" th:href="@{/users/students}">View Students</a></li>
+  <section sec:authorize="hasRole('STAFF')"><h6 class="sidebar-heading mt-3 ">STAFF</h6><ul class="nav nav-pills flex-column ">
+    <li><a class="nav-link" th:href="@{/users/profile}"><i class="bi bi-file-text"></i>Password & Details</a></li>
+    <li><a class="nav-link" th:href="@{/users/students}"><i class="bi bi-people"></i>View Students</a></li>
   </ul></section>
-  <section sec:authorize="hasRole('ADMIN')"><h6 class="sidebar-heading mt-3">ADMIN</h6><ul class="nav nav-pills flex-column">
-    <li><a class="nav-link" th:href="@{/users/admins}">View Admin Members</a></li>
-    <li><a class="nav-link" th:href="@{/users/staff}">View All Staff</a></li>
-    <li><a class="nav-link" th:href="@{/users/students}">View All Students</a></li>
+  <section sec:authorize="hasRole('ADMIN')"><div class="sidebar-heading mt-3 fs-6 ">ADMIN</div><ul class="nav nav-pills flex-column ">
+    <li><a class="nav-link" th:href="@{/users/profile}"><i class="bi bi-file-text"></i>Password & Details</a></li>
+    <li></i><a class="nav-link" th:href="@{/users/admins}"><i class="bi bi-person-badge"></i>Admin Members</a></li>
+    <li><a class="nav-link" th:href="@{/users/staff}"><i class="bi bi-person-circle"></i>All Staff</a></li>
+    <li><a class="nav-link" th:href="@{/users/students}"><i class="bi bi-people"></i>All Students</a></li>
   </ul></section>
+
+  <section sec:authorize="hasRole('ADMIN')"><h6 class="sidebar-heading mt-3 ">SETUP</h6><ul class="nav nav-pills flex-column ">
+    <li><a class="nav-link" th:href="@{/users/profile}"><i class="bi bi-mortarboard-fill"></i>Classes</a></li>
+    <li></i><a class="nav-link" th:href="@{/users/admins}"><i class="bi bi-box-fill"></i>Fee Components</a></li>
+    <li><a class="nav-link" th:href="@{/users/staff}"><i class="bi bi-stack"></i>Fee-Structure</a></li>
+    
+  </ul></section>
+
+  <section sec:authorize="hasRole('ADMIN')"><h6 class="sidebar-heading mt-3 ">REPORTS</h6><ul class="nav nav-pills flex-column ">
+    <li><a class="nav-link" th:href="@{/users/profile}"><i class="bi bi-hourglass-split "></i>Fee Pending</a></li>
+    <li></i><a class="nav-link" th:href="@{/users/admins}"><i class="bi bi-currency-rupee"></i>Approved Discounts</a></li>
+    <li><a class="nav-link" th:href="@{/users/staff}"><i class="bi bi-suitcase-fill"></i>Fees Collected</a></li>
+    
+  </ul></section>
+
 </aside>
 <main class="col-md-9 col-lg-10 px-md-4 py-4"><div layout:fragment="content"></div></main>
 </div></div>
